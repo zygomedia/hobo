@@ -1,6 +1,6 @@
 #[rustfmt::skip]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, strum::Display)]
-#[allow(non_camel_case_types)]
+#[expect(non_camel_case_types)]
 pub enum PseudoElement {
 	#[strum(to_string = "::after")] after,
 	#[strum(to_string = "::before")] before,
@@ -11,7 +11,7 @@ pub enum PseudoElement {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
-#[allow(non_camel_case_types)]
+#[expect(non_camel_case_types)]
 pub enum PseudoClass {
 	active,
 	first_child,
@@ -85,7 +85,7 @@ impl std::fmt::Display for PseudoClass {
 
 #[rustfmt::skip]
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, strum::AsRefStr, strum::Display)]
-#[allow(non_camel_case_types)]
+#[expect(non_camel_case_types)]
 pub enum Element {
 	// svg
 	svg,
@@ -211,7 +211,7 @@ impl SelectorBuilder {
 	pub fn raw(self, x: String)                       -> Selector              { Selector(vec![SelectorComponent::Raw(x)]) }
 }
 
-#[allow(clippy::return_self_not_must_use)]
+#[expect(clippy::return_self_not_must_use)]
 #[rustfmt::skip]
 impl Selector {
 	pub fn class(mut self, x: String)                 -> Self                  { self.0.push(SelectorComponent::Class(x)); self }

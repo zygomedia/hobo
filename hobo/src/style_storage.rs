@@ -25,7 +25,7 @@ pub struct StyleStorage {
 	style_elements: HashMap<String, (web_sys::Document, Vec<web_sys::CssStyleSheet>)>,
 }
 
-#[allow(clippy::redundant_pub_crate)]
+#[expect(clippy::redundant_pub_crate)]
 pub(crate) static STYLE_STORAGE: Lazy<RacyCell<StyleStorage>> = Lazy::new(|| RacyCell::new(StyleStorage {
 	inserted_style_hashes: BTreeSet::new(),
 	style_elements: hmap!["default".to_owned() => {

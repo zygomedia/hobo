@@ -7,7 +7,7 @@ pub trait DynStorage: as_any::AsAny {
 	fn flush(&mut self);
 }
 
-#[allow(clippy::type_complexity)]
+#[expect(clippy::type_complexity)]
 pub struct Storage<Component: 'static> {
 	pub data: HashMap<Entity, Component>,
 

@@ -70,7 +70,7 @@ struct SignalHandlesCollection(Vec<discard::DiscardOnDrop<futures_signals::Cance
 #[derive(Default)]
 pub(crate) struct ChildSignalHandlesCollection(pub(crate) Vec<discard::DiscardOnDrop<futures_signals::CancelableFutureHandle>>);
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 #[cfg(debug_assertions)]
 pub(crate) struct OrphanComplainer(i32, Closure<dyn Fn()>);
 
@@ -505,13 +505,13 @@ pub trait AsElement: AsEntity + Sized {
 		S: Signal<Item = I> + 'static,
 	{ self.set_style_signal(signal); self }
 
-	#[allow(clippy::return_self_not_must_use)]
+	#[expect(clippy::return_self_not_must_use)]
 	fn mark<T: 'static>(self) -> Self {
 		if self.is_dead() { log::warn!("mark dead {:?}", self.as_entity()); return self; }
 		self.get_cmp_mut_or_default::<Classes>().marks.insert(TypeId::of::<T>());
 		self
 	}
-	#[allow(clippy::return_self_not_must_use)]
+	#[expect(clippy::return_self_not_must_use)]
 	fn unmark<T: 'static>(self) -> Self {
 		if self.is_dead() { log::warn!("unmark dead {:?}", self.as_entity()); return self; }
 		self.get_cmp_mut_or_default::<Classes>().marks.remove(&TypeId::of::<T>());
