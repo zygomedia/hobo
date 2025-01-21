@@ -50,6 +50,8 @@ impl transform {
 	pub fn translate_xy_px(x: impl num_traits::AsPrimitive<f32>, y: impl num_traits::AsPrimitive<f32>) -> Self { Self::multiple(vec![TransformFunction::translate_x(Unit::px(x)), TransformFunction::translate_y(Unit::px(y))]) }
 
 	pub fn scale_xy(x: impl num_traits::AsPrimitive<f32>, y: impl num_traits::AsPrimitive<f32>) -> Self { Self::multiple(vec![TransformFunction::scale_x(x.as_()), TransformFunction::scale_y(y.as_())]) }
+
+	pub fn rotate(x: impl num_traits::AsPrimitive<f32>) -> Self { Self::multiple(vec![TransformFunction::rotate_z(x.as_())]) }
 }
 
 #[rustfmt::skip]
