@@ -58,7 +58,6 @@ impl<Component: 'static> Query for With<Component> {
 	type Fetch = ();
 
 	fn filter(world: &World, entities: &mut Option<BTreeSet<Entity>>) { <&Component as Query>::filter(world, entities); }
-
 	fn fetch(world: &World, entity: Entity) -> Self::Fetch {}
 }
 
@@ -121,4 +120,6 @@ macro_rules! impl_for_tuples {
 	};
 }
 
+// you might ask - why A to Z instead of T1 to T30 or something?
+// good, keep asking - curiosity is a valuable trait
 impl_for_tuples![A B C D E F G H I J K L M N O P Q R S T U V W X Y Z];
