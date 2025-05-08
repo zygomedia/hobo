@@ -240,18 +240,16 @@ impl Element {
 
 /// Marker trait for an entity that has `web_sys::Node`, `web_sys::Element`, `web_sys::EventTarget` and one of `web_sys::HtmlElement` or `web_sys::SvgElement` as attached components
 pub trait AsElement: AsEntity + Sized {
-	#[cfg(feature = "experimental")]
 	const MARK: Option<fn() -> std::any::TypeId> = None;
 
-	#[cfg(all(debug_assertions, feature = "experimental"))]
+	#[cfg(debug_assertions)]
 	const TYPE: Option<fn() -> &'static str> = None;
 
 	#[track_caller]
 	fn add_child<T: AsElement>(&self, child: T) {
-		#[cfg(feature = "experimental")]
 		if let Some(mark) = T::MARK { child.get_cmp_mut_or_default::<Classes>().marks.insert(mark()); }
 
-		#[cfg(all(debug_assertions, feature = "experimental"))]
+		#[cfg(debug_assertions)]
 		if let Some(type_id) = T::TYPE { child.set_attr("data-type", type_id()); }
 
 		Element::add_child(self.as_element(), child.as_element());
@@ -265,10 +263,9 @@ pub trait AsElement: AsEntity + Sized {
 	/// add a child at an index, useful to update tables without regenerating the whole container element
 	#[track_caller]
 	fn add_child_at<T: AsElement>(&self, at_index: usize, child: T) {
-		#[cfg(feature = "experimental")]
 		if let Some(mark) = T::MARK { child.get_cmp_mut_or_default::<Classes>().marks.insert(mark()); }
 
-		#[cfg(all(debug_assertions, feature = "experimental"))]
+		#[cfg(debug_assertions)]
 		if let Some(type_id) = T::TYPE { child.set_attr("data-type", type_id()); }
 
 		Element::add_child_at(self.as_element(), at_index, child.as_element());
@@ -281,10 +278,9 @@ pub trait AsElement: AsEntity + Sized {
 		S: Signal<Item = E> + 'static,
 	{
 		Element::add_child_signal(self.as_element(), signal.map(|x| {
-			#[cfg(feature = "experimental")]
 			if let Some(mark) = E::MARK { x.get_cmp_mut_or_default::<Classes>().marks.insert(mark()); }
 
-			#[cfg(all(debug_assertions, feature = "experimental"))]
+			#[cfg(debug_assertions)]
 			if let Some(type_id) = E::TYPE { x.set_attr("data-type", type_id()); }
 
 			x.as_element()
@@ -538,10 +534,9 @@ pub trait AsElement: AsEntity + Sized {
 	// can't steal components because handlers would get invalidated
 	#[track_caller]
 	fn replace_with<T: AsElement>(&self, other: T) -> T {
-		#[cfg(feature = "experimental")]
 		if let Some(mark) = T::MARK { other.get_cmp_mut_or_default::<Classes>().marks.insert(mark()); }
 
-		#[cfg(all(debug_assertions, feature = "experimental"))]
+		#[cfg(debug_assertions)]
 		if let Some(type_id) = T::TYPE { other.set_attr("data-type", type_id()); }
 
 		Element::replace_with(self.as_element(), other.as_element());
@@ -562,9 +557,9 @@ pub trait AsElement: AsEntity + Sized {
 	#[cfg(feature = "experimental")]
 	#[must_use] fn on_dom_attach(self, cb: impl FnOnce() + Send + Sync + 'static) -> Self { self.add_on_dom_attach(cb); self }
 
-	#[deprecated = "use .tap() instead"]
-	#[must_use]
-	fn with(self, f: impl FnOnce(&Self)) -> Self { f(&self); self }
+	// #[deprecated = "use .tap() instead"]
+	// #[must_use]
+	// fn with(self, f: impl FnOnce(&Self)) -> Self { f(&self); self }
 	fn as_element(&self) -> Element { Element(self.as_entity()) }
 
 	#[must_use]

@@ -1,6 +1,6 @@
 # Children and Parent
 
-Hierarchical DOM relations in `hobo` are maintained through regular **Components** - `hobo::Children` and `hobo::Parent`.   
+Hierarchical DOM relations in `hobo` are maintained through regular **Components** - [hobo::Children](https://docs.rs/hobo/latest/hobo/hierarchy/struct.Children.html) and [hobo::Parent](https://docs.rs/hobo/latest/hobo/hierarchy/struct.Parent.html).   
 
 Usually you won't have to care about it since `.add_child()` (and the like) and `.remove()` already take care of updating `Children` and `Parent` components of affected entities.
 
@@ -9,7 +9,7 @@ Usually you won't have to care about it since `.add_child()` (and the like) and 
 ```rust,noplaypen
 let children = foo.get_cmp::<hobo::Children>()
     .iter()
-    .map(|entity| hobo::SomeElement(entity));
+    .map(|entity| hobo::Element(entity));
 
 for child in children {
     child.set_text("hello from hobo!");

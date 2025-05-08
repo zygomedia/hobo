@@ -67,14 +67,6 @@ pub fn unit_value_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStre
 			#[inline] pub fn unit(x: crate::Unit) -> crate::Property { crate::Property::#name_camel(crate::UnitValue::Unit(x)) }
 		}
 
-		#[macro_export]
-		macro_rules! #name {
-			(initial)     => {$crate::Property::#name_camel($crate::UnitValue::Initial)};
-			(inherit)     => {$crate::Property::#name_camel($crate::UnitValue::Inherit)};
-			(unset)       => {$crate::Property::#name_camel($crate::UnitValue::Unset)};
-			($($val:tt)+) => {$crate::Property::#name_camel($crate::UnitValue::Unit($crate::unit!($($val)+)))};
-		}
-
 		/*
 		#[test]
 		fn #test_fn_name() {

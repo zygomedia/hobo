@@ -1,3 +1,4 @@
+#[macro_use] mod sugars;
 /// methods to create HTML Elements as well as their types
 pub mod create;
 pub mod dom_events;
@@ -13,7 +14,7 @@ mod racy_cell;
 /// resources are globally-accessible components
 pub mod resource;
 pub mod signals_ext;
-mod storage;
+pub mod storage;
 mod style_storage;
 pub mod web_str;
 mod world;
@@ -34,7 +35,6 @@ use std::{
 };
 #[cfg(not(feature = "insert-rule"))]
 use style_storage::{StyleStorage, STYLE_STORAGE};
-use sugars::hash;
 #[doc(hidden)] pub use world::World;
 pub use owning_ref;
 
@@ -57,7 +57,6 @@ pub mod backtrace {
 		cell::RefCell,
 		panic::Location,
 	};
-	use once_cell::sync::Lazy;
 	use shrinkwraprs::Shrinkwrap;
 
 	pub static STORAGE_MAP: Lazy<BacktraceStorage> = Lazy::new(Default::default);

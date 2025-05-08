@@ -154,7 +154,7 @@ impl std::fmt::Display for FontFace {
 			if let Some((first, rest)) = self.src.split_first() {
 				write!(f, "src:{first}")?;
 				for src in rest {
-					write!(f, r#",{src}"#)?;
+					write!(f, r",{src}")?;
 				}
 				";".fmt(f)?;
 			}

@@ -5,7 +5,7 @@ use std::{
 	collections::HashMap,
 	rc::Rc,
 };
-use once_cell::sync::Lazy;
+use crate::prelude::*;
 
 slotmap::new_key_type! {struct SubKey;}
 

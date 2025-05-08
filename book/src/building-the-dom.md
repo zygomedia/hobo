@@ -18,15 +18,15 @@ impl Input {
         let input = e::input()
             // shortcut for .attr(web_str::r#type(), web_str::text())
             .type_text()
-            .class(css::class! {
+            .class((
                 // some style
-            });
+            ));
 
         let caption_text = e::div()
             .text(caption_text)
-            .class(css::class! {
+            .class((
                 // some style
-            });
+            ));
 
         let mut element = e::div()
             .class(css::style! {
@@ -37,9 +37,9 @@ impl Input {
 
         if let Some(svg) = svg {
             element.add_child(
-                svg.class(css::class! {
+                svg.class((
                     // some style
-                })
+                ))
             );
         }
 

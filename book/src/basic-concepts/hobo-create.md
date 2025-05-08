@@ -1,6 +1,6 @@
 # `hobo::create`
 
-This module has a `snake_case` function which returns a corresponding `PascalCase` concrete type that implements **AsElement**.
+[This module](https://docs.rs/hobo/latest/hobo/create/index.html) has a `snake_case` function which returns a corresponding `PascalCase` concrete type that implements **AsElement** for each supported basic HTML and SVG element.
 
 ```rust,noplaypen
 let some_div: hobo::create::Div = hobo::create::div();
@@ -19,7 +19,7 @@ struct Checkbox(hobo::create::Div);
 // just an example of why you might want to do this
 impl Checkbox {
 	fn is_checked(&self) -> bool {
-		*self.get_cmp::<bool>()
+		*self.get_cmp_or_default::<bool>()
 	}
 
 	fn set_checked(&self, checked: bool) {
@@ -57,7 +57,7 @@ fn content() -> impl hobo::AsElement {
 This won't compile, but the distinction between types in this case isn't useful. So we can erase the concrete types and get the general `Element`:
 
 ```rust,noplaypen
-fn content() -> impl hobo::Element {
+fn content() -> impl hobo::AsElement {
 	match tab {
 		Tab::Main => main_page().as_element(), // hobo::Element
 		Tab::Blogpost => article().as_element(), // hobo::Element
@@ -66,7 +66,7 @@ fn content() -> impl hobo::Element {
 }
 ```
 
-If you have a regular **Entity** or something that at least implements `hobo::AsEntity` - you can recover **Element** capabilities by just constructing a `Element`:
+If you have a regular **Entity** or something that at least implements `hobo::AsEntity` - you can recover **Element** capabilities by just wrapping it in an `Element`:
 
 ```rust,noplaypen
 let elem = hobo::Element(some_entity);
@@ -75,7 +75,7 @@ let elem = hobo::Element(some_entity);
 This pattern is often useful when using queries to find elements, as queries often return entities (more on them in [queries](../state/queries.md))
 
 ```rust,noplaypen
-let (entity, _) = hobo::find_ond::<Entity, With<ComponentFoo>>();
+let (_, entity) = hobo::find_ond::<With<ComponentFoo>, Entity>();
 // We know that this entity is an Input element we've made,
 // but we need it's type to be an Input, not Entity,
 // to e.g. access it's value via the get/set_value methods

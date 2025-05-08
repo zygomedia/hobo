@@ -9,7 +9,7 @@ element
     })
 ```
 
-These methods operate by means of, unsurprisingly, adding or modifying a **Component** on the element. The callback itself gets wrapped in `hobo::dom_events::EventHandlerCallback`, which will unsubscribe from DOM when dropped. A **Component** with a `Vec<EventHandlerCallback>` is created unless it already exists, then the just created `EventHandlerCallback` is just pushed into it.    
+These methods operate by means of, unsurprisingly, adding or modifying a **Component** on the element. The callback itself gets wrapped in [hobo::dom_events::EventHandler](https://docs.rs/hobo/latest/hobo/dom_events/struct.EventHandler.html), which will unsubscribe from DOM when dropped. A **Component** with a `Vec<EventHandler>` is created unless it already exists, then the just created `EventHandler` is just pushed into it.    
 
 It's possible to manage subscribing/unsubscribing manually by calling the functions on raw `web_sys::HtmlElement`s. For example, when you're doing some kind of a slider and you want some logic in `on_mouse_move` even if the mouse leaves the element:
 
@@ -27,3 +27,5 @@ element
         }),
     ))
 ```
+
+Note that the `.on_mouse_move()` and `.on_mouse_up()` aren't actually `web_sys::window()`'s functions - these are extension methods, provided by `hobo` via [hobo::dom_events::RawDomEvents](https://docs.rs/hobo/latest/hobo/dom_events/trait.RawDomEvents.html) extension trait for any [web_sys::EventTarget](https://docs.rs/web-sys/latest/web_sys/struct.EventTarget.html).

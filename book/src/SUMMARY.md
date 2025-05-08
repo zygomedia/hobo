@@ -27,3 +27,4 @@
 	- [Elements that change](recipes/elements-that-change.md)
 	- [SVGs](recipes/svgs.md)
 	- [Async and .is_dead()](recipes/async-and-is-dead.md)
+- [hobo-plus](hobo-plus.md)

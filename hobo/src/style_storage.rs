@@ -1,7 +1,5 @@
 use crate::{prelude::*, racy_cell::RacyCell};
-use once_cell::sync::Lazy;
 use std::{collections::{HashMap, BTreeSet}, hash::{Hash, Hasher}};
-use sugars::hmap;
 
 #[derive(Default)]
 pub struct StyleStorage {

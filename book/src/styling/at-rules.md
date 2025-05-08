@@ -30,7 +30,7 @@ So these two would be equivalent:
 ```rust
 @media All && MaxWidth(css::unit!(1023 px)) {
     html {
-        css::background_color!(rgb 0xFF_00_00),
+        css::background_color::rgb(0xFF_00_00),
     }
 }
 ```
@@ -43,4 +43,3 @@ So these two would be equivalent:
 }
 ```
 
-Support for `@keyframes` and `@page` is planned.

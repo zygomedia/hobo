@@ -1,6 +1,6 @@
 [package]
 name = "hobo_css_macros"
-version = "0.4.1"
+version = "1.0.0-rc.1"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/zygomedia/hobo"
@@ -12,9 +12,9 @@ readme = "../README.md"
 proc-macro = true
 
 [dependencies]
-derive_utils = "0.14"
+derive_utils = "0.15"
 heck = "0.5"
-itertools = "0.13"
+itertools = "0.14"
 proc-macro-crate = "3"
 proc-macro-error = "1"
 proc-macro2 = "1"

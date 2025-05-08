@@ -5,7 +5,6 @@ pub mod html;
 
 use crate::{prelude::*, AsEntity, AsElement, Entity, World};
 use std::{any::TypeId, collections::HashSet};
-use sugars::*;
 
 #[cfg(test)] use wasm_bindgen_test::*;
 #[cfg(test)] wasm_bindgen_test_configure!(run_in_browser);

@@ -12,7 +12,7 @@ struct ButtonMarker;
 e::div()
     .class(css::style!(
         .& >> .[ButtonMarker] {
-            css::cursor!(pointer),
+            css::cursor::pointer,
         }
     ))
     .child(e::div()
@@ -35,16 +35,16 @@ use hobo::create as e;
 struct Flexible;
 
 e::div()
-    .class((css::display!(flex), css::background_color!(css::color::RED)))
+    .class((css::display::flex, css::background_color::rgba(css::colors::RED)))
     .class_typed::<Flexible>((
-        css::flex_direction!(row),
-        css::width!(100 px),
+        css::flex_direction::row,
+        css::width::px(100),
     ))
     .with(|&element| element.add_on_click(move |_| {
         element
             .set_class_typed::<Flexible>((
-                css::flex_direction!(column),
-                css::height!(100 px),
+                css::flex_direction::column,
+                css::height::px(100),
             ))
     }))
 ```
@@ -55,16 +55,16 @@ e::div()
 use hobo::create as e;
 
 e::div()
-    .class(css::display!(flex))
+    .class(css::display::flex)
     .class_tagged("Flexible", (
-        css::flex_direction!(row),
-        css::width!(100 px),
+        css::flex_direction::row,
+        css::width::px(100),
     ))
     .on_click(|&element| {
         element
             .set_class_tagged("Flexible", (
-                css::flex_direction!(column),
-                css::height!(100 px),
+                css::flex_direction::column,
+                css::height::px(100),
             ))
     })
 ```
@@ -84,8 +84,8 @@ let theme = Mutable::new(Theme::Light);
 e::div()
     .class_typed_signal::<Theme, _, _>(theme.signal().map(|theme| {
         match theme {
-            Theme::Light => css::background_color!(css::color::WHITE),
-            Theme::Dark => css::background_color!(css::color::BLACK),
+            Theme::Light => css::background_color::rgba(css::colors::WHITE),
+            Theme::Dark => css::background_colo::rgba(css::colors::BLACK),
         }
     }))
     .component(theme)

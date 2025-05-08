@@ -1,8 +1,8 @@
 # Borrowing and Storage
 
-Components for entities are stored in a simple map - `HashMap<Entity, Component>` (see, `hobo::storage::SimpleStorage`).
+Components for entities are stored in a simple map - `HashMap<Entity, Component>` (see, [hobo::storage::Storage](https://docs.rs/hobo/latest/hobo/storage/struct.Storage.html)).
 
-(This also makes searching for components via `hobo::find_one` *very* cheap).
+(This also makes searching for components via `hobo::find_one` *very* cheap, as it's just a single `u64` hashmap lookup)
 
 Rust's ownership rules ensure that a mutable borrow is exclusive, which means that we cannot have mutable references to components while immutable ones exists (or vice-versa).
 Here's an example of how this affects hobo:

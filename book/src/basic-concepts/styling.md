@@ -1,8 +1,8 @@
 # Styling facilities
 
-Most hobo components will be styled with either `.class()` or `.style()` functions, where either `css::class!()`, `css::style!()` or `css::properties!()` macros are used. The naming is confusing somewhat, but the distinction is important.
+Most hobo components will be styled with either `.class()` or `.style()` functions, where either tuples or `css::style!()` macro is used. The naming is confusing somewhat, but the distinction is important.
 
-* `.style()` and `.set_style()` use the `style` attribute, which can only take a bunch of properties without any selectors, so `css::properties!()` macro is used.
+* `.style()` and `.set_style()` use the `style` attribute, which can only take a bunch of properties without any selectors, so a plain tuple is used.
 * `.class()`, `.set_class()` and `tagged` variants use the `class` attribute:
 	* `css::style!()` uses a css-like `{ <selector> { <properties> } <selector> { <properties> } }` syntax
 	* `css::class!()` is `css::style!(.& { <properties> })` or in other words - it's a bunch of properties applied just to the element being styled, similar to what can go in a `style` attribute, just using a class to refer to it.
@@ -13,43 +13,43 @@ For example, here's a style:
 e::div()
     .class(css::style!(
         .& {
-            css::height!(393 px),
-            css::Display::Flex,
-            css::AlignItems::Center,
-            css::Position::Relative,
+            css::height::px(393),
+            css::display::flex,
+            css::align_items::center,
+            css::position::relative,
         }
 
         .& > svg {
-            css::width!(12 px),
-            css::height!(100%),
-            css::Cursor::Pointer,
-            css::flex_shrink!(0),
-            css::UserSelect::None,
+            css::width::px(12),
+            css::height::pct(100),
+            css::cursor::pointer,
+            css::flex_shrink::val(0),
+            css::user_select::none,
         }
 
         .& > :not(:nth_child(1)) {
-            css::z_index!(200),
+            css::z_index::val(200),
         }
 
         .& > div:not(:nth_child(1)) {
-            css::width!(17.5%),
-            css::height!(100%),
-            css::Display::Flex,
-            css::AlignItems::Center,
+            css::width::pct(17.5),
+            css::height::pct(100),
+            css::display::flex,
+            css::align_items::center,
         }
 
         .&.& > :nth_child(5) {
-            css::width!(30%),
+            css::width::pct(30),
         }
 
         .& > *:nth_child(3) > img,
         .& > *:nth_child(4) > img,
         .& > svg:last_child {
-            css::Transform::Some(vec![css::TransformFunction::ScaleX((-1.).into())])
+			css::transform::scale_x(-1),
         }
 
         .& >> img {
-            css::height!(100%),
+            css::height::pct(100),
         }
     ))
 ```

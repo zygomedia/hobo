@@ -15,6 +15,7 @@ pub use crate::{
 	storage::{DynStorage, StorageGuard, Storage},
 	web_str, MarkClassString,
 };
+pub(crate) use std::sync::LazyLock as Lazy;
 #[doc(hidden)] pub use wasm_bindgen::prelude::*;
 pub use web_sys;
 

@@ -7,7 +7,6 @@ use crate::{
 	style_storage::{StyleStorage, STYLE_STORAGE},
 	StorageRef, StorageRefMut,
 };
-use once_cell::sync::Lazy;
 use owning_ref::{OwningRef, OwningRefMut};
 use std::{
 	any::TypeId,
@@ -15,7 +14,6 @@ use std::{
 	collections::{BTreeSet, HashMap},
 	sync::atomic::{AtomicU64, Ordering},
 };
-use sugars::hash;
 
 #[expect(clippy::redundant_pub_crate)]
 pub(crate) static WORLD: Lazy<World> = Lazy::new(|| {

@@ -9,7 +9,7 @@ decimal_literal_representation = "warn"
 todo = "warn"
 option_if_let_else = "warn"
 redundant_pub_crate = "warn"
-allow_attributes_without_reason = "warn"
+# allow_attributes_without_reason = "warn"
 if_then_some_else_none = "warn"
 mod_module_files = "warn"
 # too many false-positives, unfortunately

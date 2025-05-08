@@ -5,10 +5,13 @@ Since there's no VDOM, rebuilding the DOM is done manually by literally rebuildi
 However, most modifications can often be expressed with signals, with some child, style or text of an element just being a result of some computation based on one or multiple Mutables. With regards to styling in particular, most of the style is probably not going to change, with only minor changes based on something like theme.
 
 ```rust,noplaypen
+.class((
+    // a lot of different properties that never_change
+))
 .class_typed_signal::<Theme, _, _>(theme.signal().map(|theme| {
     match theme {
-        Theme::Light => css::background_color!(css::color::WHITE),
-        Theme::Dark => css::background_color!(css::color::BLACK),
+        Theme::Light => css::background_color::rgba(css::colors::WHITE),
+        Theme::Dark => css::background_color::rgba(css::colors::BLACK),
     }
 }))
 ```

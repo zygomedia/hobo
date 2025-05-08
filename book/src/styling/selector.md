@@ -1,6 +1,6 @@
 # Selector
 
-hobo selectors mirror css selectors with minor changes, most notably:
+hobo selectors mirror CSS selectors with minor changes, most notably:
 
 * descendant selectors like `div a` become `div >> a` because Rust doesn't have semantic whitespaces.
 	* selectors like `div.active` work mostly the same (except have to be written like `div.("active")` or `div .("active")`)
@@ -23,7 +23,7 @@ struct ButtonMarker;
 e::div()
     .class(css::style!(
         .& >> .[ButtonMarker] {
-            css::cursor!(pointer),
+            css::cursor::pointer,
         }
     ))
     .child(e::div()
@@ -35,3 +35,4 @@ e::div()
         .text("button 2")
     )
 ```
+

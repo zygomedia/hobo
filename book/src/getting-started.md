@@ -3,10 +3,10 @@
 Here's a basic counter component:
 
 ```rust,noplaypen
-pub use hobo::{
-    prelude::*, 
+use hobo::{
+    prelude::*,
     create as e,
-    signals::signal::{Mutable, SignalExt}
+    signal::Mutable,
 }
 
 // <div class="s-f4d1763947b5e1ff">
@@ -21,17 +21,17 @@ fn counter() -> impl hobo::AsElement {
     e::div()
         .class((
             // enum-like properties can also be set like `css::Display::Flex`
-            css::display!(flex),
-            css::width!(400 px),
+            css::display::flex,
+            css::width::px(400),
             // #AA0000FF or #AA0000 or #A00 in normal css
-            css::background_color!(rgb 0xAA_00_00),
-            css::align_items!(center),
-            css::justify_content!(space-between),
+            css::background_color::rgb(0xAA_00_00),
+            css::align_items::center,
+            css::justify_content::space_between,
         ))
         .child(e::div()
-            .text_signal(counter_value.signal().map(|value| {
-                format!("Counter value is: {}", value)
-            }))
+            .text_signal(counter_value.signal_ref(|value|
+                format!("Counter value is: {value}"))
+            )
         )
         .component(counter_value)
         .with(move |&counter_div| counter_div
@@ -41,12 +41,12 @@ fn counter() -> impl hobo::AsElement {
                     // or styled-components
                     .& {
                         // shortcut for padding-left and padding-right
-                        css::padding_horizontal!(16 px),
-                        css::background_color!(css::color::PALEVIOLETRED),
+                        css::padding_horizontal::px(16),
+                        css::background_color::rgba(css::colors::PALEVIOLETRED),
                     }
 
                     .&:hover {
-                        css::background_color!(css::color::GREEN),
+                        css::background_color::rgba(css::colors::GREEN),
                     }
                 ))
                 .text("increment")
@@ -55,17 +55,18 @@ fn counter() -> impl hobo::AsElement {
                 })
             )
             .add_child(e::button() // same as .child but non-chaining
-                // since this style is identical to the one above it - the class will be
-                // reused to avoid copypasting - the button generating code can be
-                // moved into a function or maybe just the code that defines the style
+                // since this style is identical to the one above it -
+                // the class will be reused to avoid copypasting -
+                // the button generating code can be moved into
+                // a function or maybe just the code that defines the style
                 .class(css::style!(
                     .& {
-                        css::padding_horizontal!(16 px),
-                        css::background_color!(css::color::PALEVIOLETRED),
+                        css::padding_horizontal::px(16),
+                        css::background_color::rgba(css::colors::PALEVIOLETRED),
                     }
 
                     .&:hover {
-                        css::background_color!(css::color::GREEN),
+                        css::background_color::rgba(css::colors::GREEN),
                     }
                 ))
                 .text("decrement")

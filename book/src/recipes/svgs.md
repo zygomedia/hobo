@@ -13,12 +13,12 @@ fn get_svg_element(xml_node: &roxmltree::Node, id: u64) -> web_sys::SvgElement {
     for attribute in xml_node.attributes() {
         // need to fixup ids to avoid id collisions in html if the same icon is used multiple times
         if attribute.name() == "id" {
-            node.set_attribute(wasm_bindgen::intern(attribute.name()), &format!("{}{:x}", attribute.value(), id)).unwrap();
+            node.set_attribute(wasm_bindgen::intern(attribute.name()), &format!("{}{id:x}", attribute.value())).unwrap();
         } else {
             let mut value = attribute.value().to_owned();
             // optimistic expectation that ids only used in url references
             if value.contains("url(#") {
-                value = value.replace(')', &format!("{:x})", id))
+                value = value.replace(')', &format!("{id:x})"))
             }
             node.set_attribute(wasm_bindgen::intern(attribute.name()), &value).unwrap();
         }
@@ -53,6 +53,8 @@ svg![
 ];
 ```
 
+This code makes some assumptions which might not be true for your SVGs, but the general idea is to convert source XML into `web_sys::XXX` elements. Similar approach can be used to include some HTML verbatim. A variant of this `svg!` macro is included in [hobo-plus](../hobo-plus.md)
+
 ## Constructing inline SVGs
 
 Of course, if you need to algorithmically construct an svg, such as if you're making a chart, you can do that too:
@@ -65,7 +67,7 @@ let svg = e::svg()
         .attr(web_str::cy(), "0")
         .attr(web_str::r(), "1")
         .class((
-            css::fill!(colors::gray6),
+            css::fill::rgba(colors::gray6),
         ))
     );
 ```
