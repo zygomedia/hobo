@@ -5,7 +5,7 @@
 
 **hobo** is an opinionated, batteries-included Rust frontend framework. Works on **stable Rust**.    
 **STILL WIP** although used in production by [Zygo Media](https://zygomedia.com).    
-[Check out the Book](https://zygomedia.github.io/hobo/index.html)!
+[Check out the Book](https://zygomedia.github.io/hobo)!
 
 ### Notable features:
 
