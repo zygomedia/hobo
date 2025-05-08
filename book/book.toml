@@ -4,3 +4,6 @@ description = "hobo is a Rust frontend framework"
 
 [rust]
 edition = "2024"
+
+[build]
+build-dir = "../docs"
