@@ -46,9 +46,28 @@ fn counter() -> impl hobo::AsElement {
 }
 ```
 
-TODO:
-### Comparions to other Rust-in-browser frameworks
-* yew
-* leptos
-* seed
-* etc
+### Rough comparison to other Rust-in-browser frameworks
+* [Yew](https://yew.rs)
+	* Uses a VDOM
+	* Uses a `html!` macro
+	* Can SSR (`hobo` can not, yet)
+	* No first-class styling
+* [Leptos](https://leptos.dev)
+	* No VDOM, but a different, perhaps more convoluted, approach to reactivity, somewhat similar to React Hooks
+		* Some common `hobo` patterns like `.child_signal()` are much more complicated to do in Leptos
+	* No querying, so communication between distant elements is difficult, there's an implementation of the Context pattern to help
+	* Primarily uses a `view!` as well as `#[component]` annotations, but has support for macro-less syntax as well, which looks somewhat similar to `hobo`
+	* Advanced SSR options
+	* No first-class styling
+* [Seed](https://github.com/seed-rs/seed)
+	* Not maintained
+	* Uses a VDOM
+	* Uses nexted macros for layout
+	* No first-class styling support
+* [Dominator](https://github.com/Pauan/rust-dominator)
+	* No VDOM, same reactivity approach as `hobo`
+	* Uses a `html!` macro (which doesn't look like HTML, however)
+	* No querying, ad-hoc communication between distant elements
+	* No first-class styling
+	* Somewhat sparse documentation
+* [Sycamore](https://github.com/sycamore-rs/sycamore) - ???
