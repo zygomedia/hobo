@@ -173,6 +173,12 @@ e::div()
         Ok(())
     }))</code></pre>
 <p>This isn't necessary outside of async context because wasm is single-threaded so your element can't get unmounted due to user actions, but in some complex scenarios it might be useful anyway. Frequent culprits for issues with this are <code>.child_signal()</code> (which generates a new entity on every signal update) and <code>.replace()</code> (which replaces with a new entity).</p>
+<p>You can also use <a href="https://docs.rs/hobo/latest/hobo/entity/trait.AsEntity.html#method.spawn">.spawn()</a> and <a href="https://docs.rs/hobo/latest/hobo/entity/trait.AsEntity.html#method.spawn_in">.spawn_in()</a> to spawn a future that will be cancelled when the entity is removed. This is fine to do since if our <code>div</code> is removed - <code>.set_text()</code> will not be called.</p>
+<pre><code class="language-rust noplaypen">e::div()
+    .spawn_in(async move |&amp;element| {
+        let value = do_some_request_or_something().await?;
+        element.set_text(value);
+    })</code></pre>
 
                     </main>
 
