@@ -139,7 +139,7 @@ impl World {
 	// INFO: Anything that calls storage or storage_mut should have track_caller.
 	// This is so that the StorageGuard can have accurate location from user-code in debug.
 	#[track_caller]
-	pub fn storage<Component: 'static>(&self) -> StorageGuard<Component, StorageRef<Component>> {
+	pub fn storage<Component: 'static>(&self) -> StorageGuard<Component, StorageRef<'_, Component>> {
 		#[cfg(debug_assertions)]
 		crate::backtrace::STORAGE_MAP.0.borrow_mut()
 			.entry(TypeId::of::<Component>())
@@ -157,7 +157,7 @@ impl World {
 	}
 
 	#[track_caller]
-	pub fn storage_mut<Component: 'static>(&self) -> StorageGuardMut<Component, StorageRefMut<Component>> {
+	pub fn storage_mut<Component: 'static>(&self) -> StorageGuardMut<Component, StorageRefMut<'_, Component>> {
 		#[cfg(debug_assertions)]
 		crate::backtrace::STORAGE_MAP.0.borrow_mut()
 			.entry(TypeId::of::<Component>())
@@ -179,12 +179,12 @@ impl World {
 
 	/// Resources are just components attached to Entity(0)
 	#[track_caller]
-	pub fn resource<T: 'static>(&self) -> OwningRef<StorageGuard<T, StorageRef<T>>, T> {
+	pub fn resource<T: 'static>(&self) -> OwningRef<StorageGuard<T, StorageRef<'_, T>>, T> {
 		OwningRef::new(self.storage()).map(|x| x.get(Entity::root()).unwrap())
 	}
 
 	#[track_caller]
-	pub fn resource_mut<T: 'static>(&self) -> OwningRefMut<StorageGuardMut<T, StorageRefMut<T>>, T> {
+	pub fn resource_mut<T: 'static>(&self) -> OwningRefMut<StorageGuardMut<T, StorageRefMut<'_, T>>, T> {
 		OwningRefMut::new(self.storage_mut()).map_mut(|x| x.get_mut(Entity::root()).unwrap())
 	}
 
@@ -194,13 +194,13 @@ impl World {
 	}
 
 	#[track_caller]
-	pub fn try_resource<T: 'static>(&self) -> Option<OwningRef<StorageGuard<T, StorageRef<T>>, T>> {
+	pub fn try_resource<T: 'static>(&self) -> Option<OwningRef<StorageGuard<T, StorageRef<'_, T>>, T>> {
 		if !self.storage::<T>().has(Entity::root()) { return None; }
 		Some(OwningRef::new(self.storage()).map(|x| x.get(Entity::root()).unwrap()))
 	}
 
 	#[track_caller]
-	pub fn try_resource_mut<T: 'static>(&self) -> Option<OwningRefMut<StorageGuardMut<T, StorageRefMut<T>>, T>> {
+	pub fn try_resource_mut<T: 'static>(&self) -> Option<OwningRefMut<StorageGuardMut<T, StorageRefMut<'_, T>>, T>> {
 		if !self.storage::<T>().has(Entity::root()) { return None; }
 		Some(OwningRefMut::new(self.storage_mut()).map_mut(|x| x.get_mut(Entity::root()).unwrap()))
 	}

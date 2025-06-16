@@ -2,13 +2,15 @@
 //! # Examples
 //!
 //! ```
+//! use hobo::prelude::*;
+//!
 //! struct Foo {
 //!     // some fields
 //! }
 //!
 //! // find the first (presumably only) entity with some component Foo
-//! let (entity, _) = hobo::find_one::<(Entity, With<Foo>)>();
-//! let element = SomeElement(entity);
+//! let (entity, _) = hobo::find_one::<(Entity, hobo::query::With<Foo>)>();
+//! let element = hobo::Element(entity);
 //! element.set_text("This entity has Foo");
 //! ```
 //!
@@ -20,7 +22,7 @@
 //!
 //! // find all entities with a Frobnicator component and mutate it
 //! // perhaps as a result of some combined transformation
-//! for frobnicator in hobo::find::<&mut Frobnicator>() {
+//! for mut frobnicator in hobo::find::<&mut Frobnicator>() {
 //!     frobnicator.num_fraculations += 1;
 //! }
 //! ```

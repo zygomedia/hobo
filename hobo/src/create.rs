@@ -6,8 +6,8 @@ pub mod html;
 use crate::{prelude::*, AsEntity, AsElement, Entity, World};
 use std::{any::TypeId, collections::HashSet};
 
-#[cfg(test)] use wasm_bindgen_test::*;
-#[cfg(test)] wasm_bindgen_test_configure!(run_in_browser);
+// #[cfg(test)] use wasm_bindgen_test::*;
+// #[cfg(test)] wasm_bindgen_test_configure!(run_in_browser);
 
 pub fn dom_element<T, E>(world: &World, entity: T, element: &E) where
 	T: AsEntity,
@@ -97,7 +97,7 @@ macro_rules! create {
 			}
 
 			#[test]
-			fn [<$html_name _has_selector>]() { crate::css::macros::selector!($html_name); }
+			fn [<$html_name _has_selector>]() { let _ = crate::css::macros::selector!($html_name); }
 		)*
 
 		$(
@@ -116,7 +116,7 @@ macro_rules! create {
 			}
 
 			#[test]
-			fn [<$svg_name _has_selector>]() { crate::css::macros::selector!($svg_name); }
+			fn [<$svg_name _has_selector>]() { let _ = crate::css::macros::selector!($svg_name); }
 		)*
 
 		#[doc(hidden)]

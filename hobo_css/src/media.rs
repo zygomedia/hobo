@@ -142,7 +142,7 @@ fn woo() {
 		crate::style!(
 			@media !All && Orientation(Portrait) && !AspectRatio(4, 3), Print && Color(4) && !Width(crate::Unit::Px(crate::F32::new(200.).unwrap())) {
 				html {
-					background_color!(rgb 0xFF_00_00)
+					crate::background_color::rgb(0xFF_00_00)
 				}
 			}
 		),
@@ -152,7 +152,7 @@ fn woo() {
 					hobo_css_macros::media_selector!(!All && Orientation(Portrait) && !AspectRatio(4, 3), Print && Color(4) && !Width(crate::Unit::Px(crate::F32::new(200.).unwrap()))),
 					crate::style!(
 						html {
-							background_color!(rgb 0xFF_00_00)
+							crate::background_color::rgb(0xFF_00_00)
 						}
 					),
 				),
@@ -164,7 +164,7 @@ fn woo() {
 		crate::style!(
 			@media !All && Orientation(Portrait) && !AspectRatio(4, 3), Print && Color(4) && !Width(crate::Unit::Px(crate::F32::new(200.).unwrap())) {
 				html {
-					background_color!(rgb 0xFF_00_00)
+					crate::background_color::rgb(0xFF_00_00)
 				}
 			}
 		).to_string(),
